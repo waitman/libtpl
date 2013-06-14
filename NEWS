@@ -1,0 +1,6 @@
+
+
+2013-06-14
+	Forked from https://github.com/troydhanson/tpl to build on FreeBSD by Waitman Gobble <waitman@waitman.net>
+	updated configure.ac to remove MS config from non-MS systems
+	
