@@ -15,16 +15,17 @@ m4_defun([AC_PROG_F77],[])
 LT_INIT
 
 dnl detect Cygwin or MinGW and use mmap family replacements
-AC_CONFIG_LIBOBJ_DIR(src/win)
 case $host in
      *-*-mingw32* | *-*-cygwin* | *-*-windows*)
+     AC_CONFIG_LIBOBJ_DIR(src/win)
      AC_LIBOBJ(mmap)
      AC_MSG_NOTICE([using custom mmap for Cygwin/MinGW])
-     ;;
      AC_CONFIG_FILES(src/win/Makefile src/Makefile Makefile)
+     ;;
 case $host in
      *)
      AC_CONFIG_FILES(src/Makefile Makefile)
+     ;;
 esac
 
 AC_OUTPUT
