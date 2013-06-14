@@ -14,6 +14,6 @@ m4_undefine([AC_PROG_F77])
 m4_defun([AC_PROG_F77],[])
 LT_INIT
 
-AC_CONFIG_FILES(src/Makefile Makefile)
+dnl AC_CONFIG_FILES(src/Makefile Makefile)
 AC_OUTPUT
 
