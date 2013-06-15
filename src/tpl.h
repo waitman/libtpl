@@ -25,7 +25,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TPL_H 
 
 #include <stddef.h>     /* size_t */
-
 #include <stdarg.h>  /* va_list */
 
 #ifdef __INTEL_COMPILER

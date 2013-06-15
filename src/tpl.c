@@ -21,7 +21,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define TPL_VERSION 1.5
+#define TPL_VERSION 1.6
 
 static const char id[]="$Id: tpl.c 192 2009-04-24 10:35:30Z thanson $";
 
@@ -31,35 +31,13 @@ static const char id[]="$Id: tpl.c 192 2009-04-24 10:35:30Z thanson $";
 #include <string.h>  /* memcpy, memset, strchr */
 #include <stdio.h>   /* printf (tpl_hook.oops default function) */
 
-#ifndef _WIN32
 #include <unistd.h>     /* for ftruncate */
-#else
-#include <io.h>
-#define ftruncate(x,y) _chsize(x,y)
-#endif
 #include <sys/types.h>  /* for 'open' */
 #include <sys/stat.h>   /* for 'open' */
 #include <fcntl.h>      /* for 'open' */
 #include <errno.h>
-#ifndef _WIN32
 #include <inttypes.h>   /* uint32_t, uint64_t, etc */
-#else
-typedef unsigned short ushort;
-typedef __int16 int16_t;
-typedef __int32 int32_t;
-typedef __int64 int64_t;
-typedef unsigned __int16 uint16_t;
-typedef unsigned __int32 uint32_t;
-typedef unsigned __int64 uint64_t;
-#endif
-
-
-#if ( defined __CYGWIN__ || defined __MINGW32__ || defined _WIN32 )
-#include "win/mman.h"   /* mmap */
-#else
 #include <sys/mman.h>   /* mmap */
-#endif
-
 #include "tpl.h"
 
 #define TPL_GATHER_BUFLEN 8192
@@ -1719,13 +1697,8 @@ static int tpl_mmap_output_file(char *filename, size_t sz, void **text_out) {
     void *text;
     int fd,perms;
 
-#ifndef _WIN32
     perms = S_IRUSR|S_IWUSR|S_IWGRP|S_IRGRP|S_IROTH;  /* ug+w o+r */
     fd=open(filename,O_CREAT|O_TRUNC|O_RDWR,perms);
-#else
-	perms = _S_IWRITE;
-    fd=_open(filename,_O_CREAT|_O_TRUNC|_O_RDWR,perms);
-#endif
 
     if ( fd == -1 ) {
         tpl_hook.oops("Couldn't open file %s: %s\n", filename, strerror(errno));
